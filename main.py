@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 def main(nameCity):
 
@@ -77,6 +78,32 @@ def main(nameCity):
     plt.title('Price vs Year for Chevrolet Cruze Cars in ' + nameCity)
     plt.show()
 
+    df['car'] = df['car'].str.split(n=1).str[0]
+    df.rename(columns={'car':'body'},inplace=True)
+
+    # Линейная регрессия
+    X = df[['year']]
+    y = df['price']
+
+    model = LinearRegression()
+    model.fit(X, y)
+
+    # Предсказание цен на основе модели
+    df['predicted_price'] = model.predict(X)
+
+    # Построение scatter plot с линией регрессии
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(data=df, x='year', y='price', label='Actual Prices')
+    sns.lineplot(data=df, x='year', y='predicted_price', color='red', label='Predicted Prices')
+    plt.xlabel('Year')
+    plt.ylabel('Price')
+    plt.title('Linear Regression of Price vs Year for Chevrolet Cruze Cars in Yekaterinburg')
+    plt.legend()
+    plt.show()
+
+    # Вывод коэффициентов модели
+    print(f"Intercept: {model.intercept_}")
+    print(f"Coefficient: {model.coef_[0]}")
 
 if __name__ == '__main__':
     main('Екатеринбург')
