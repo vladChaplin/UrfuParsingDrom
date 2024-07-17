@@ -817,6 +817,8 @@ from sklearn.metrics import mean_squared_error as mse, r2_score
 from sklearn.metrics import PredictionErrorDisplay
 import warnings
 
+import logit_reg
+
 warnings.filterwarnings('ignore')
 pd.options.display.max_columns = None
 
@@ -1070,3 +1072,6 @@ if st.button('Выполнить'):
 if st.button('Очистить'):
     st.cache_data.clear()
     st.experimental_rerun()
+
+if st.button('Логистическая регрессия'):
+    logit_reg.main()
