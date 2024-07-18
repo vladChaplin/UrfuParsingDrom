@@ -237,15 +237,7 @@ def main(cities, selected_brands, selected_models, years):
     ax.set_ylabel("Фактические значения (руб)")
     st.pyplot(fig)
 
-    def plot_regression_results(model, X, y, feature_names):
-        fig, axes = plt.subplots(1, len(feature_names), figsize=(15, 5))
-        for i, ax in enumerate(axes):
-            sns.regplot(x=X[:, i], y=y, ax=ax, line_kws={"color": "red"})
-            ax.set_xlabel(translations.get(feature_names[i], feature_names[i]))
-            ax.set_ylabel("Цена (руб)")
-        st.pyplot(fig)
-
-    plot_regression_results(model, X_val_prep, y_val, features_names)
+    # plot_regression_results function call removed
 
     def predict_next_year(model, X, features_names):
         X_copy = X.copy()
